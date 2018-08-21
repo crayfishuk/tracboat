@@ -305,7 +305,7 @@ class Connection(ConnectionBase):
             label_link.save()
 
         # 4. timetracking
-        if kwargs['time_spent']:
+        if kwargs.get('time_spent'):
             M.Timelogs.create(
                 created_at=issue.created_at,
                 issue=issue.id,
@@ -357,8 +357,8 @@ class Connection(ConnectionBase):
 
     def save_attachment(self, path, binary):
         filename = os.path.join(self.uploads_path, self.project_qualname, path)
-        if os.path.isfile(filename):
-            raise Exception("file already exists: %r" % filename)
+        #if os.path.isfile(filename):
+        #    raise Exception("file already exists: %r" % filename)
         directory = os.path.dirname(filename)
         if not os.path.exists(directory):
             os.makedirs(directory)

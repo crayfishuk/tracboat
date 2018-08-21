@@ -44,11 +44,26 @@ class LabelPriority(LabelAbstract):
     TYPE = 'priority'
     COLOR = '#D9534F'
     ATTRIBUTE_NAME = 'priority'
+    MAPPING = {
+        'Fatal': 'P1',
+        'Critical': 'P2',
+        'Major': 'P3',
+        'Medium': 'P4',
+        'Minor': 'P5',
+        'Cosmetic': 'P6',
+    }
 
 class LabelResolution(LabelAbstract):
     TYPE = 'resolution'
     COLOR = '#AD8D43'
     ATTRIBUTE_NAME = 'resolution'
+    MAPPING = {
+        'fixed': 'closed:fixed',
+        'invalid': 'closed:invalid',
+        'wontfix': 'closed:wontfix',
+        'duplicate': 'closed:duplicate',
+        'worksforme': 'closed:worksforme',
+    }
 
 class LabelVersion(LabelAbstract):
     TYPE = 'version'
@@ -73,7 +88,12 @@ class LabelStatus(LabelAbstract):
         'new': 'opened',
         'assigned': 'opened',
         'accepted': 'opened',
+        'active': 'opened',
         'reopened': 'opened',
+        'defer': 'opened',
+        'fixed': 'closed',
+        'review': 'closed',
+        'tested': 'closed',
         'closed': 'closed',
     }
 
