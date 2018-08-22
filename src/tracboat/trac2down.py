@@ -174,7 +174,7 @@ def convert(text, base_path, multilines=True, note_map={}, attachments_path=None
 
             return "%(git_hash)s" % d
 
-    image_re = re.compile(r'\[\[Image\((?:(?P<module>(?:source|wiki)):)?(?P<path>[^)]+)\)\]\]')
+    image_re = re.compile(r'\[\[Image\((?:(?P<module>(?:source|wiki)):)?(?P<path>[^,)]+)(?P<opt>(,[^)]+))\)\]\]')
     def image_replace(m):
         """
         https://trac.edgewall.org/wiki/WikiFormatting#Images
