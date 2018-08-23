@@ -32,6 +32,9 @@ def convert(text, base_path, multilines=True, note_map={}, attachments_path=None
     text = text.replace('[[TOC]]', '')
     text = text.replace('[[BR]]', '\n')
     text = text.replace('[[br]]', '\n')
+    # https://stackoverflow.com/questions/31522361/python-getting-rid-of-u200b-from-a-string-using-regular-expressions
+    text = text.strip(u'\u200b')
+    text = text.strip(u'\u200B')
 
     if multilines:
         text = re.sub(r'^\S[^\n]+([^=-_|])\n([^\s`*0-9#=->-_|])', r'\1 \2', text)
@@ -174,7 +177,7 @@ def convert(text, base_path, multilines=True, note_map={}, attachments_path=None
 
             return "%(git_hash)s" % d
 
-    image_re = re.compile(r'\[\[Image\((?:(?P<module>(?:source|wiki)):)?(?P<path>[^,)]+)(?P<opt>(,[^)]+))\)\]\]')
+    image_re = re.compile(r'\[\[Image\((?:(?P<module>(?:source|wiki)):)?(?P<path>[a-zA-Z0-9.-_+/$=]+)(?P<opt>([^)]+))?\)\]\]')
     def image_replace(m):
         """
         https://trac.edgewall.org/wiki/WikiFormatting#Images
@@ -191,10 +194,12 @@ def convert(text, base_path, multilines=True, note_map={}, attachments_path=None
         path = m.group('path')
 
         d = m.groupdict()
-        d.update({
-            'base_path': os.path.relpath('/tree/master/', base_path),
-            'upload_path' : '/uploads/migrated/%s' % path,
-        })
+        d['base_path'] = os.path.relpath('/tree/master/', base_path),
+
+        if attachments_path :
+            d['upload_path'] = attachments_path + '/' + path
+        else:
+            d['upload_path'] = '/uploads/migrated/%s' % path,
 
         if module == 'source':
             return '![](%(base_path)s/%(path)s)' % d
@@ -218,6 +223,7 @@ def convert(text, base_path, multilines=True, note_map={}, attachments_path=None
             line = re.sub(r'\[(https?://[^\s\[\]]+)\s([^\[\]]+)\]', r'[\2](\1)', line)
             line = re.sub(r'\[wiki:([^\s\[\]]+)\s([^\[\]]+)\]', r'[\2](%s/\1)' % os.path.relpath('/wikis/', base_path), line)
             line = re.sub(r'\[wiki:([^\s\[\]]+)\]', r'[\1](\1)', line)
+            line = re.sub(r'(\s)(([A-Z][a-z0-9]+/?){2,})', r'\1[\2](%s\2)' % os.path.relpath('/wikis/', base_path), line)
             line = re.sub(r'\!(([A-Z][a-z0-9]+){2,})', r'\1', line)
 
             line = source_re.sub(source_replace, line)
