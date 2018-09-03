@@ -90,7 +90,7 @@ class LabelStatus(LabelAbstract):
         'accepted': 'opened',
         'active': 'opened',
         'reopened': 'opened',
-        'defer': 'opened',
+        'defer': 'closed',
         'fixed': 'closed',
         'review': 'closed',
         'tested': 'closed',
