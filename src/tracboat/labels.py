@@ -55,7 +55,7 @@ class LabelPriority(LabelAbstract):
 
 class LabelResolution(LabelAbstract):
     TYPE = 'resolution'
-    COLOR = '#AD8D43'
+    COLOR = '#7F8C8D'
     ATTRIBUTE_NAME = 'resolution'
     MAPPING = {
         'fixed': 'closed:fixed',
@@ -65,19 +65,19 @@ class LabelResolution(LabelAbstract):
         'worksforme': 'closed:worksforme',
     }
 
-class LabelVersion(LabelAbstract):
-    TYPE = 'version'
-    COLOR = '#5CB85C'
-    ATTRIBUTE_NAME = 'version'
+#class LabelVersion(LabelAbstract):
+#    TYPE = 'version'
+#    COLOR = '#5CB85C'
+#    ATTRIBUTE_NAME = 'version'
 
 class LabelComponent(LabelAbstract):
     TYPE = 'component'
-    COLOR = '#8E44AD'
+    COLOR = '#428BCA'
     ATTRIBUTE_NAME = 'component'
 
 class LabelType(LabelAbstract):
     TYPE = 'type'
-    COLOR = '#A295D6'
+    COLOR = '#D10069'
     ATTRIBUTE_NAME = 'type'
 
 class LabelStatus(LabelAbstract):
