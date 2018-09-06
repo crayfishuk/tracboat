@@ -65,10 +65,10 @@ class LabelResolution(LabelAbstract):
         'worksforme': 'closed:worksforme',
     }
 
-#class LabelVersion(LabelAbstract):
-#    TYPE = 'version'
-#    COLOR = '#5CB85C'
-#    ATTRIBUTE_NAME = 'version'
+class LabelVersion(LabelAbstract):
+    TYPE = 'version'
+    COLOR = '#5CB85C'
+    ATTRIBUTE_NAME = 'version'
 
 class LabelComponent(LabelAbstract):
     TYPE = 'component'
@@ -133,7 +133,7 @@ class LabelManager():
         self.classes = [
             LabelPriority,
             LabelResolution,
-            LabelVersion,
+#            LabelVersion,
             LabelComponent,
             LabelType,
 #            LabelStatus,
